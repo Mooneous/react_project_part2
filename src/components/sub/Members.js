@@ -1,7 +1,9 @@
 import Layout from '../common/Layout';
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Members() {
+	const history = useHistory();
 	const initVal = {
 		//취소버튼사용시 필요
 		userid: '',
@@ -17,6 +19,9 @@ function Members() {
 
 	//인증 조건 실패시 출력될 에러메시지가 항목별로 담길 state 추가
 	const [Err, setErr] = useState({});
+
+	//전송 버튼 클릭 유무를 담을 스테이트
+	const [Submit, setSubmit] = useState(false);
 
 	//인증처리 함수
 	const check = (value) => {
@@ -119,7 +124,17 @@ function Members() {
 	};
 
 	useEffect(() => {
-		console.log(Err);
+		//console.log(Err);
+
+		//전송 클릭시 에러메세지를 가지고 값이 Err스테이트 객체에 하나도 없으면 인증통과
+		//Objec.keys(확인할 객체) : 특정 객체의 키값을 배열로 반환해주는 객체전용 내장함수
+		const len = Object.keys(Err).length;
+		//에러메세지가 하나도 없고 Submit버튼을 클릭시 두개 조건을 모두 만족해야지 인증성공처리
+		if (len === 0 && Submit) {
+			alert('회원가입이 완료되었습니다. 메인페이지로 이동합니다.');
+			//메인페이지로 강제 이동
+			history.push('/');
+		}
 	}, [Err]); //에러객체가생성되면실행
 
 	return (

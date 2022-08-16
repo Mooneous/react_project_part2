@@ -10,6 +10,7 @@ function Members() {
 		pwd2: '',
 		gender: 'null',
 		edu: '',
+		interests: null,
 	};
 	const [Val, setVal] = useState(initVal);
 
@@ -57,6 +58,11 @@ function Members() {
 			errs.edu = '최종학력을 선택하세요';
 		}
 
+		//interests 인증처리
+		if (!value.interests) {
+			errs.interests = '관심사를 하나 이상 선택하세요';
+		}
+
 		return errs;
 	};
 
@@ -92,6 +98,18 @@ function Members() {
 	const handleSelect = (e) => {
 		const { name, value } = e.target;
 		setVal({ ...Val, [name]: value });
+	};
+
+	//checkbox 인풋 전용 함수
+	const handleCheck = (e) => {
+		let isCheck = false;
+		const { name } = e.target;
+		const inputs = e.target.parentElement.querySelectorAll('input');
+
+		inputs.forEach((el) => {
+			if (el.checked) isCheck = true;
+		});
+		setVal({ ...Val, [name]: isCheck });
 	};
 
 	useEffect(() => {
@@ -208,6 +226,22 @@ function Members() {
 									</select>
 
 									<span className='err'>{Err.edu}</span>
+								</td>
+							</tr>
+
+							{/* interests */}
+							<tr>
+								<th scope='row'>INTERESTS</th>
+								<td>
+									<label htmlFor='sports'>Sports</label>
+									<input type='checkbox' id='sports' name='interests' onChange={handleCheck} />
+
+									<label htmlFor='music'>Music</label>
+									<input type='checkbox' id='music' name='interests' onChange={handleCheck} />
+
+									<label htmlFor='game'>Game</label>
+									<input type='checkbox' id='game' name='interests' onChange={handleCheck} />
+									<span className='err'>{Err.interests}</span>
 								</td>
 							</tr>
 

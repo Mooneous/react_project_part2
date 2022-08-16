@@ -1,0 +1,23 @@
+//반응형
+$web_s: 1599px;
+$tablet: 1279px;
+$mobile: 539px;
+
+//common
+@import 'common/reset';
+@import 'common/layout';
+@import 'common/header';
+@import 'common/footer';
+@import 'common/popup';
+
+//main
+@import 'main/visual';
+@import 'main/content';
+
+//sub
+@import 'sub/department';
+@import 'sub/community';
+@import 'sub/gallery';
+@import 'sub/youtube';
+@import 'sub/location';
+@import 'sub/members';

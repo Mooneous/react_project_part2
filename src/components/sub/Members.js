@@ -9,6 +9,7 @@ function Members() {
 		pwd1: '',
 		pwd2: '',
 		gender: 'null',
+		edu: '',
 	};
 	const [Val, setVal] = useState(initVal);
 
@@ -51,6 +52,11 @@ function Members() {
 			errs.gender = '성별을 선택하세요';
 		}
 
+		//edu 인증처리
+		if (value.edu === '') {
+			errs.edu = '최종학력을 선택하세요';
+		}
+
 		return errs;
 	};
 
@@ -80,6 +86,12 @@ function Members() {
 		const { name } = e.target;
 		const isCheck = e.target.checked;
 		setVal({ ...Val, [name]: isCheck });
+	};
+
+	//select 전용 함수
+	const handleSelect = (e) => {
+		const { name, value } = e.target;
+		setVal({ ...Val, [name]: value });
 	};
 
 	useEffect(() => {
@@ -178,6 +190,24 @@ function Members() {
 									<input type='radio' id='female' name='gender' onChange={handleRadio} />
 									{/*name값이 같으므로 둘다체크안됨*/}
 									<span className='err'>{Err.gender}</span>
+								</td>
+							</tr>
+
+							{/* edu */}
+							<tr>
+								<th scope='row'>
+									<label htmlFor='edu'>EDUCATION</label>
+								</th>
+								<td>
+									<select name='edu' id='edu' onChange={handleSelect}>
+										<option value=''>최종 학력을 선택하세요</option>
+										<option value='elementary-school'>초등학교 졸업</option>
+										<option value='middle-school'>중학교 졸업</option>
+										<option value='high-school'>고등학교 졸업</option>
+										<option value='college'>대학교 졸업</option>
+									</select>
+
+									<span className='err'>{Err.edu}</span>
 								</td>
 							</tr>
 

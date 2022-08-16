@@ -11,6 +11,7 @@ function Members() {
 		gender: 'null',
 		edu: '',
 		interests: null,
+		comments: '',
 	};
 	const [Val, setVal] = useState(initVal);
 
@@ -61,6 +62,11 @@ function Members() {
 		//interests 인증처리
 		if (!value.interests) {
 			errs.interests = '관심사를 하나 이상 선택하세요';
+		}
+
+		//comments 인증처리
+		if (value.comments.length < 10) {
+			errs.comments = '남기는 말을 10글자 이상 입력하세요';
 		}
 
 		return errs;
@@ -242,6 +248,24 @@ function Members() {
 									<label htmlFor='game'>Game</label>
 									<input type='checkbox' id='game' name='interests' onChange={handleCheck} />
 									<span className='err'>{Err.interests}</span>
+								</td>
+							</tr>
+
+							{/* comments */}
+							<tr>
+								<th scope='row'>
+									<label htmlFor='comments'>COMMENTS</label>
+								</th>
+								<td>
+									<textarea
+										name='comments'
+										id='comments'
+										cols='30'
+										rows='3'
+										placeholder='남기는말을 입력하세요'
+										onChange={handleChange}></textarea>
+
+									<span className='err'>{Err.comments}</span>
 								</td>
 							</tr>
 

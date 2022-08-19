@@ -5,6 +5,7 @@ header {
 
 	h1 {
 		padding: 20px 10vw;
+		font: 30px/1 'Cormorant Garamond';
 	}
 
 	nav {
@@ -59,8 +60,14 @@ header.main {
 	z-index: 2;
 
 	h1 {
+		text-align: center;
 		a {
-			color: gold;
+			color: #fff;
+		}
+		span {
+			font: 15px/1 'arial';
+			letter-spacing: 10px;
+			color: #fff;
 		}
 	}
 	nav {

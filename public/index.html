@@ -12,6 +12,44 @@
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
+  <div class="defaults">
+    <div class="mask"></div>
+  </div>
+
+  <script>
+    const defaults = document.querySelector('.defaults');
+    const mask = document.querySelector('.mask');
+    let tags = '';
+    const baseURL = 'https://mooneous.github.io/react_project_part2';
+    const imgs = [
+      baseURL + '/img/Community.jpg',
+      baseURL + '/img/Department.jpg',
+      baseURL + '/img/Gallery.jpg',
+      baseURL + '/img/Location.jpg',
+      baseURL + '/img/Youtube.jpg',
+      baseURL + '/img/Members.jpg'
+    ];
+    const vids = [
+      baseURL + '/img/vid.mp4'
+    ];
+    const lenImg = imgs.length;
+    const lenVid = vids.length;
+
+    //DOM생성함수 호출
+    createDOM();
+
+    //DOM생성함수
+    function createDOM() {
+      imgs.forEach(src => {
+        tags += `<img src=${src} />`
+      })
+      vids.forEach(src => {
+        tags += `<video src=${src}></video>`
+      })
+      defaults.innerHTML = tags;
+    }
+
+  </script>
 </body>
 
 </html>

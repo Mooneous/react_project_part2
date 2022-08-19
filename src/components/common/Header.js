@@ -9,7 +9,9 @@ function Header(props) {
 	return (
 		<header className={props.type}>
 			<h1>
-				<Link to='/'>LOGO</Link>
+				<Link to='/'>JO MALONE</Link>
+				<br />
+				<span>LONDON</span>
 			</h1>
 
 			<nav>

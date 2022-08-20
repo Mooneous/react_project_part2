@@ -1,14 +1,30 @@
 footer {
-	background-color: linen;
+	background-color: #fcf9ee;
 	.upper {
 		width: 100%;
 		padding: 30px 10vw;
-		border-top: 1px solid #333;
+		border-top: 1px solid #999;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
+		color: #1c1c1c;
 
 		h1 {
-			width: 100%;
+			font: bold 25px/0.9 'Cormorant Garamond';
+			text-align: center;
+			margin-left: 10px;
+
+			a {
+				letter-spacing: 5px;
+				color: #1c1c1c;
+			}
+			span {
+				font: bold 13px/1 'Cormorant Garamond';
+				color: #1c1c1c;
+				display: inline-block;
+				text-indent: 10px;
+				letter-spacing: 5px;
+			}
 		}
 		.sns {
 			display: flex;
@@ -23,20 +39,20 @@ footer {
 		.midWrap {
 			width: 100%;
 			padding: 0 10vw;
-			border-top: 1px solid #333;
-			border-bottom: 1px solid #333;
+			border-top: 1px solid #999;
+			border-bottom: 1px solid #999;
 			display: flex;
 			justify-content: space-between;
 			flex-wrap: wrap;
 
 			dl {
 				width: 25%;
-				border-left: 1px solid #333;
+				border-left: 1px solid #999;
 				padding: 30px 0;
 				font-size: 16px;
 
 				&:last-child {
-					border-right: 1px solid #333;
+					border-right: 1px solid #999;
 				}
 			}
 
@@ -93,15 +109,15 @@ footer {
 			.midWrap {
 				dl {
 					width: 50%;
-					border-left: 1px solid #333;
-					border-top: 1px solid #333;
+					border-left: 1px solid #999;
+					border-top: 1px solid #999;
 					padding: 30px 0;
 					&:nth-child(1),
 					&:nth-child(2) {
 						border-top: none;
 					}
 					&:nth-child(2n) {
-						border-right: 1px solid #333;
+						border-right: 1px solid #999;
 					}
 				}
 			}
@@ -115,7 +131,7 @@ footer {
 				width: 100%;
 				padding: 30px 10vw;
 				display: block;
-				border-bottom: 1px solid #333;
+				border-bottom: 1px solid #999;
 
 				li {
 					display: inline-block;
@@ -135,7 +151,7 @@ footer {
 	footer {
 		.upper {
 			padding: 30px 10vw;
-			border-top: 1px solid #333;
+			border-top: 1px solid #999;
 			display: block;
 
 			h1 {
@@ -185,7 +201,7 @@ footer {
 				width: 100%;
 				padding: 30px 10vw;
 				display: block;
-				border-bottom: 1px solid #333;
+				border-bottom: 1px solid #999;
 
 				li {
 					width: 100%;

@@ -11,48 +11,46 @@ function Header(props) {
 			<h1>
 				<Link to='/'>JO MALONE</Link>
 				<br />
-				<span>LONDON</span>
+				<span>SEAOUL</span>
 			</h1>
 
 			<nav>
 				<ul className='gnb gnbL'>
 					<li>
 						<NavLink to='/community' activeStyle={active}>
-							Community
+							COMMUNITY
 						</NavLink>
 					</li>
 					<li>
 						<NavLink to='/department' activeStyle={active}>
-							Department
+							DEPARTMENT
 						</NavLink>
 					</li>
 					<li>
 						<NavLink to='/gallery' activeStyle={active}>
-							Gallery
+							GALLERY
 						</NavLink>
 					</li>
 					<li>
 						<NavLink to='/location' activeStyle={active}>
-							Location
+							LOCATION
 						</NavLink>
 					</li>
-					<li>
-						<NavLink to='/members' activeStyle={active}>
-							Members
-						</NavLink>
-					</li>
+
 					<li>
 						<NavLink to='/youtube' activeStyle={active}>
-							Youtube
+							YOUTUBE
 						</NavLink>
 					</li>
 				</ul>
 				<ul className='gnb gnbR'>
 					<li>
-						<NavLink to='#'>LogIn</NavLink>
+						<NavLink to='#'>LOG IN</NavLink>
 					</li>
 					<li>
-						<NavLink to='#'>SignUp</NavLink>
+						<NavLink to='/members' activeStyle={active}>
+							MEMBERS
+						</NavLink>
 					</li>
 				</ul>
 			</nav>

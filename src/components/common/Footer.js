@@ -4,11 +4,16 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
+import { Link } from 'react-router-dom';
+
 function Footer() {
 	return (
 		<footer>
 			<div className='upper'>
-				<h1>LOGO</h1>
+				<h1>
+					<Link to='/'>JO MALONE</Link>
+					<span>SEAOUL</span>
+				</h1>
 				<ul className='sns'>
 					<li>
 						<FontAwesomeIcon icon={faTwitter} />
@@ -68,7 +73,7 @@ function Footer() {
 					<li>Privacy Policy</li>
 					<li>Cookie Policy</li>
 				</ul>
-				<p>&copy; 2022 LOGO. All Rights Reserved.</p>
+				<p>&copy; 2022 SEAOUL. All Rights Reserved.</p>
 			</div>
 		</footer>
 	);

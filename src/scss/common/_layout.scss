@@ -1,19 +1,24 @@
 .content {
+	background: #fcf9ee;
 	figure {
 		width: 100%;
 		height: 150px;
-		background: #eee;
+		background: #eee
+			/*url('./' + process.env.PUBLIC_URL + '/img/banner_department.jpg')
+			no-repeat center center*/;
 		padding: 40px 10vw;
 		text-align: center;
 		line-height: 70px;
-		border-bottom: 1px solid #333;
+		border-bottom: 1px solid #999;
+
+		h1 {
+			font: 50px/1 'lato';
+		}
 	}
 
 	.inner {
 		width: 80%;
 		margin: 0 auto;
 		min-height: 500px;
-		border-left: 1px solid #999;
-		padding: 150px 0;
 	}
 }

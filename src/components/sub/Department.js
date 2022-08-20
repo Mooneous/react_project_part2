@@ -13,9 +13,9 @@ function Department() {
 
 	return (
 		<Layout name={'Department'}>
-			<div className='sectionWrap'>
+			<div className='sectionCon'>
 				<section className='section01'>
-					<h1>WE ARE</h1>
+					<h1>We Are</h1>
 					<div className='articleWrap'>
 						<p>
 							Enthusiastic
@@ -30,7 +30,7 @@ function Department() {
 				</section>
 
 				<section className='section02'>
-					<h1>FIND US </h1>
+					<h1>Find Us </h1>
 					<div className='articleWrap'>
 						<div>
 							<h2>Address</h2>
@@ -64,7 +64,7 @@ function Department() {
 				</section>
 
 				<section className='section03'>
-					<h1>OUR TEAM</h1>
+					<h1>Our Team</h1>
 					<div className='articleWrap'>
 						{Members.map((member, idx) => {
 							return (

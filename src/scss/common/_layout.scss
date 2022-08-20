@@ -3,11 +3,13 @@
 	figure {
 		width: 100%;
 		height: 150px;
-		background: #eee
-			/*url('./' + process.env.PUBLIC_URL + '/img/banner_department.jpg')
-			no-repeat center center*/;
+		background: #eee url(../img/banner_department.jpg) 50% center no-repeat;
+		/*background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;*/
+
 		padding: 40px 10vw;
-		text-align: center;
+		text-align: left;
 		line-height: 70px;
 		border-bottom: 1px solid #999;
 

@@ -29,6 +29,10 @@
       font: 20px/1 'arial';
       color: #fff;
     }
+
+    .mask.off {
+      opacity: 0;
+    }
   </style>
 </head>
 
@@ -61,6 +65,24 @@
     //DOM생성함수 호출
     createDOM();
 
+    //Promise.all()로 loadImg, loadVid함수가 모두 프로미스 객체를 반환할때까지 기다린후 동기화 처리
+    Promise.all([loadImg(), loadVid()]).then(result => {
+      console.log(result);//[true,true]
+      const [loadedImg, lodedVid] = result;
+
+      //두함수의 반환값이 모두 true이면 (영상, 이미지가 모두 로딩완료되면)
+      if (loadedImg && lodedVid) {
+        console.log('mask-hide');
+        mask.classList.add('.off');
+
+        setTimeout(() => {
+          mask.remove();
+          defaults.remove();
+        }, 2000)
+      }
+
+    })
+
     //DOM생성함수
     function createDOM() {
       imgs.forEach(src => {
@@ -75,14 +97,14 @@
     //이미지소스 로딩완료 검사함수
     //이미지소스가 모두 로딩완료시 프로미스객체로 true반환 함수
     function loadImg() {
-      return new Promise((res, rej) => {
+      return new Promise((res, rej) => {//response응답객체reject에러응답객체
         let countImg = 0;
         const imgDOM = defaults.querySelectorAll('img');
 
         imgDOM.forEach(img => {
           img.onload = () => {
             countImg++;
-            console.log('img loaded..', counteImg);
+            console.log('img loaded..', countImg);
             if (countImg === lenImg) {
               res(true);
             }
@@ -100,7 +122,7 @@
         vidDOM.forEach(vid => {
           vid.onloadeddata = () => {
             countVid++;
-            console.log('video loaded..', counteVid);
+            console.log('video loaded..', countVid);
             if (countVid === lenVid) {
               res(true);
             }

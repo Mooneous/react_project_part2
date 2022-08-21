@@ -10,8 +10,22 @@ function Community() {
 
 	//로컬스토리지에 있는 데이터를 가져와서 다시 JSON객체로 parsing해서 리턴하는 함수
 	const getLocalData = () => {
-		const data = localStorage.getItem('post'); //getItem<->setItem(로컬에서 데이터 가져오기<-> 로컬에 저장하기)
-		return JSON.parse(data); //parse<->stringify(문자열을JSON으로변환<->JSON을문자열로변환 )
+		const dummyPosts = [
+			{ title: 'Hello5', content: 'Here comes description in detail.' },
+			{ title: 'Hello4', content: 'Here comes description in detail.' },
+			{ title: 'Hello3', content: 'Here comes description in detail.' },
+			{ title: 'Hello2', content: 'Here comes description in detail.' },
+			{ title: 'Hello1', content: 'Here comes description in detail.' },
+		];
+
+		const data = localStorage.getItem('post');
+
+		if (data) {
+			//data있으면
+			return JSON.parse(data); //JSON으로 갖고와
+		} else {
+			return dummyPosts; //아니면 dummyPosts 보여줘~
+		}
 	};
 
 	//초기 Posts스테이트에 로컬스토리지의 데이터를 가져와서 저장

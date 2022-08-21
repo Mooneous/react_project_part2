@@ -23,6 +23,12 @@ function Community() {
 		resetForm();
 	};
 
+	//글삭제 함수
+	const deletePost = (index) => {
+		const newPosts = Posts.filter((_, idx) => idx !== index); //Posts중에 순번값과 인덱스값이 같지 않은 글만 필터링해줘(순번값과 인덱스값이 같은 글은 반환되지 않음)
+		setPosts(newPosts);
+	};
+
 	useEffect(() => {
 		console.log(Posts);
 	}, [Posts]);
@@ -43,6 +49,16 @@ function Community() {
 						<article key={idx}>
 							<h2>{post.title}</h2>
 							<p>{post.content}</p>
+							<div className='btnSet'>
+								<button>EDIT</button>
+								{/* 각 게시글 목록을 생성할때 삭제버튼까지 같이 생성, 삭제버튼 클릭시 삭제하려고 하는 해당 순번을 인수로 전달 */}
+								<button
+									onClick={() => {
+										deletePost(idx);
+									}}>
+									DELETE
+								</button>
+							</div>
 						</article>
 					);
 				})}

@@ -6,17 +6,22 @@ function Community() {
 	const textarea = useRef(null);
 	const [Posts, setPosts] = useState([]);
 
-	//글저장 함수
-	const createPost = () => {
-		//console.log('title', input.current.value);
-		//console.log('content', textarea.current.value);
-		{
-			/*2. 함수실행 : deepcopy된 배열에 참조객체로부터 전달받은 제목,본문을 객체리터럴형식으로 만들어 스테이트 변경*/
-		}
-		setPosts([...Posts, { title: input.current.value, content: textarea.current.value }]);
+	//기존 폼요소 초기화 함수
+	const resetForm = () => {
+		input.current.value = '';
+		textarea.current.value = '';
 	};
 
-	//3. 빈배열에 해당 게시글 정보로 만들어진 객체 추가됨
+	//글저장 함수
+	const createPost = () => {
+		if (!input.current.value.trim() || !textarea.current.value.trim()) {
+			return alert('제목과 본문을 모두 입력하세요');
+		}
+		//console.log('title', input.current.value);
+		//console.log('content', textarea.current.value);
+		setPosts([...Posts, { title: input.current.value, content: textarea.current.value }]);
+		resetForm();
+	};
 
 	useEffect(() => {
 		console.log(Posts);
@@ -30,10 +35,8 @@ function Community() {
 				<textarea cols='30' rows='3' placeholder='본문을 입력하세요' ref={textarea}></textarea>
 				<br />
 				<button>CANCEL</button>
-				{/*1. 글저장버튼 클릭*/}
 				<button onClick={createPost}>WRITE</button>
 			</div>
-			{/*4. 배열에 객체값이 추가가되면 반복을 돌면서 리턴문으로 목록 출력*/}
 			<div className='showBox'>
 				{Posts.map((post, idx) => {
 					return (

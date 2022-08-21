@@ -1,139 +1,150 @@
 .Members {
 	width: 100%;
-	.formCon {
-		font-family: lato;
-		padding: 150px 0;
-		border-left: 0.1px solid #999;
-		form {
+}
+.formCon {
+	font-family: lato;
+	padding: 150px 0 300px;
+	border-left: 0.1px solid #999;
+	form {
+		width: 100%;
+
+		fieldset {
 			width: 100%;
+			border: none;
 
-			fieldset {
+			.formWrap {
 				width: 100%;
-				border: none;
+				display: flex;
+				flex-wrap: wrap;
+				h1 {
+					width: 30%;
+					font: bold italic 30px/1.4 'Cormorant Garamond';
+					color: #333;
 
-				.formWrap {
-					width: 100%;
-					display: flex;
-					flex-wrap: wrap;
-					h1 {
-						width: 30%;
-						font: bold italic 30px/1 'Cormorant Garamond';
-						color: #333;
+					span {
+						font: italic 25px/1.4 'Cormorant Garamond';
 					}
-					.formSec {
-						width: 70%;
-						margin-bottom: 100px;
+				}
+				.formSec {
+					width: 70%;
 
-						h2 {
+					h2 {
+						margin-bottom: 10px;
+						label {
+							font: bold 23px/1 'lato';
+							letter-spacing: -0.5px;
+							color: #333;
 							margin-bottom: 10px;
-							label {
-								font: 23px/1 'lato';
-								letter-spacing: -1px;
-								color: #333;
-								margin-bottom: 10px;
 
-								span {
-									font: italic 23px/1 'Cormorant Garamond';
-									display: inline-block;
-									margin: 0 5px;
-								}
-							}
-						}
-
-						.terms {
-							width: 100%;
-							height: 10vw;
-							overflow-y: auto;
-							border: 1px solid #e5e5e5;
-							background: #fff;
-							padding: 20px 45px 20px 30px;
-							color: #888;
-
-							b {
+							span {
+								font: italic 23px/1 'Cormorant Garamond';
 								display: inline-block;
-								margin-bottom: 10px;
-							}
-						}
-
-						.agreement {
-							text-align: right;
-							padding: 20px 30px;
-							margin-bottom: 20px;
-							input {
-								vertical-align: middle;
-								margin-left: 50px;
-							}
-
-							label {
-								font-weight: bold;
-								font-size: 15px;
-								margin-left: 10px;
+								margin: 0 5px;
 							}
 						}
 					}
 
-					.formSec1 {
-						table {
+					.terms {
+						width: 100%;
+						height: 10vw;
+						overflow-y: auto;
+						border: 1px solid #e5e5e5;
+						background: #fff;
+						padding: 20px 45px 20px 30px;
+						color: #888;
+
+						b {
+							display: inline-block;
+							margin-bottom: 10px;
+						}
+					}
+
+					.agreement {
+						text-align: right;
+						padding: 20px 30px;
+						margin-bottom: 20px;
+						input {
+							vertical-align: middle;
+							margin-left: 50px;
+						}
+
+						label {
+							font-weight: bold;
+							font-size: 15px;
+							margin-left: 10px;
+						}
+					}
+				}
+
+				.formSec1 {
+					margin-bottom: 150px;
+					table {
+						width: 100%;
+						tbody {
 							width: 100%;
-							tbody {
-								width: 100%;
-								tr {
-									th {
-										width: 17%;
-										text-align: left;
-										font: bold 15px/1 'Lato';
-										padding: 20px 0px;
+							tr {
+								th {
+									width: 17%;
+									text-align: left;
+									font: bold 15px/1 'Lato';
+									padding: 20px 0px;
+								}
+
+								td {
+									border-bottom: 1px solid #ddd;
+									padding: 10px 30px;
+
+									input[type='text'] {
+										background: #fcf9ee;
+										width: 40%;
+										height: 30px;
+										padding: 20px 0;
+										border: none;
+										font: italic 15px/1 'lato';
+									}
+									input[type='password'] {
+										background: #fcf9ee;
+										width: 40%;
+										height: 30px;
+										padding: 20px 0;
+										border: none;
+										font: 5px/1 'lato';
 									}
 
-									td {
-										border-bottom: 1px solid #ddd;
-										padding: 10px 30px;
+									input::placeholder {
+										color: #a9a9a9;
+									}
 
-										input[type='text'] {
-											background: #fcf9ee;
-											width: 40%;
-											height: 30px;
-											padding: 20px 0;
-											border: none;
-											font: italic 15px/1 'lato';
-										}
-										input[type='password'] {
-											background: #fcf9ee;
-											width: 40%;
-											height: 30px;
-											padding: 20px 0;
-											border: none;
-											font: 5px/1 'lato';
-										}
+									#email,
+									#domain {
+										width: 25%;
+									}
 
-										input::placeholder {
-											color: #a9a9a9;
-										}
+									span {
+										display: inline-block;
+										margin-right: 20px;
+									}
+									select {
+										padding: 10px 70px 10px 20px;
+										border: 1px solid #d7d7d7;
+										color: #999;
+										font-size: 15px;
+									}
 
-										#email1,
-										#email2 {
-											width: 20%;
-										}
+									input[type='radio'] {
+										margin-right: 10px;
+									}
 
-										span {
-											display: inline-block;
-											margin-right: 20px;
-										}
-										select {
-											padding: 10px 70px 10px 20px;
-											border: 1px solid #d7d7d7;
-											color: #999;
-											font-size: 15px;
-										}
+									label {
+										margin-right: 50px;
+										font-size: 15px;
+									}
 
-										input[type='radio'] {
-											margin-right: 10px;
-										}
-
-										label {
-											margin-right: 50px;
-											font-size: 15px;
-										}
+									.err {
+										display: block;
+										margin-left: 10px;
+										font-size: 13px;
+										color: hotpink;
 									}
 								}
 							}
@@ -141,17 +152,30 @@
 					}
 				}
 
-				.btnWrap {
-					text-align: right;
-					> input {
-						width: 150px;
-						height: 40px;
-						border: none;
-						background: #333;
-						font: bold 15px/1 'lato';
-						color: #fff;
-						margin: 0 10px;
-					}
+				.formSec2 {
+					margin-bottom: 50px;
+				}
+
+				.formSec2 .err,
+				.formSec3 .err {
+					display: block;
+					margin-top: 10px;
+					margin-left: 10px;
+					font-size: 13px;
+					color: hotpink;
+				}
+			}
+			.btnWrap {
+				text-align: right;
+				margin-top: 100px;
+				> input {
+					width: 150px;
+					height: 40px;
+					border: none;
+					background: #333;
+					font: bold 15px/1 'lato';
+					color: #fff;
+					margin: 0 10px;
 				}
 			}
 		}

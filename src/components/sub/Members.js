@@ -1,10 +1,131 @@
 import Layout from '../common/Layout';
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Members() {
+	const history = useHistory();
+	const initVal = {
+		userid: '',
+		pwd1: '',
+		pwd2: '',
+		email: '',
+		domain: '',
+		emailDomain: '',
+		gender: null,
+		agreeSer: null,
+		agreePer: null,
+		agreeMkt: null,
+	};
+	const [Val, setVal] = useState(initVal);
+	const [Err, setErr] = useState({});
+	const [Submit, setSubmit] = useState(false);
+
+	//인증처리 함수
+	const check = (value) => {
+		const errs = {};
+
+		//인증처리할 조건 정규표현식
+		const eng = /[a-zA-Z]/;
+		const num = /[0-9]/;
+		const spc = /[~!@#$%^&*()_+\]]/;
+
+		//userid 인증처리
+		if (value.userid.length < 5) {
+			errs.userid = 'Use 5 or more characters.';
+		}
+
+		//pwd1 인증처리
+		if (
+			value.pwd1.length < 6 ||
+			!eng.test(value.pwd1) ||
+			!num.test(value.pwd1) ||
+			!spc.test(value.pwd1)
+		) {
+			errs.pwd1 = 'Use 6 or more characters with a mix of letters, numbers and symbols.';
+		}
+		//pwd2 인증처리
+		if (value.pwd1 !== value.pwd2 || !value.pwd2) {
+			errs.pwd2 = 'Enter the same password again.';
+		}
+
+		//email 인증처리
+		if (value.email.length < 5) {
+			errs.email = 'Use 5 or more characters.';
+		}
+		//domain 인증처리
+		if (!/./.test(value.domain)) {
+			errs.domain = 'Check your email domain is correct.';
+		}
+		//emailDomain 인증처리
+		if (value.emailDomain === '') {
+			errs.emailDomain = 'Choose your email-domain.';
+		}
+
+		//gender 인증처리
+		if (!value.gender) {
+			errs.gender = 'Choose your gender.';
+		}
+		//checkbox 인증처리
+		if (!value.agreeSer) {
+			errs.agreeSer = 'Please checking a required option!';
+		}
+		if (!value.agreePer) {
+			errs.agreePer = 'Please checking a required option!';
+		}
+		if (!value.agreeMkt) {
+			errs.agreeMkt = 'Choose more than one.';
+		}
+		return errs;
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault(); //서버전송 방지
+		setErr(check(Val)); //인증검사후 에러 스테이트에 결과 담기
+	};
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		//console.log('name', name);
+		//console.log('value', value);
+		//키값을 변수로 지정 [키값] - es6
+		setVal({ ...Val, [name]: value });
+	};
+
+	const handleRadio = (e) => {
+		const { name } = e.target;
+		const isCheck = e.target.checked; //true or false
+		setVal({ ...Val, [name]: isCheck });
+	};
+
+	const handleCheck = (e) => {
+		let isCheck = false;
+		const { name } = e.target;
+		const inputs = e.target.parentElement.querySelectorAll('input');
+
+		inputs.forEach((el) => {
+			if (el.checked) isCheck = true; //하나라도 체크되어 있으면 true값 전달
+		});
+		setVal({ ...Val, [name]: isCheck });
+	};
+
+	const handleSelect = (e) => {
+		const { name, value } = e.target;
+		setVal({ ...Val, [name]: value });
+	};
+
+	useEffect(() => {
+		const len = Object.keys(Err).length; //에러객체의 키값을 배열로 반환해주는 함수
+		if (len === 0 && Submit) {
+			//에러메세지가 하나도 없고 Submit값이 true일때
+			alert('회원가입이 완료되었습니다. 메인페이지로 이동합니다.');
+			history.push('/'); //메인페이지로 강제 이동
+		}
+	}, [Err]); //에러스테이트가 변경될때마다 실행
+
 	return (
 		<Layout name={'Members'}>
 			<div className='formCon'>
-				<form>
+				<form onSubmit={handleSubmit}>
 					<fieldset>
 						<legend className='hidden'>회원가입양식폼</legend>
 						{/*회원정보입력*/}
@@ -25,8 +146,10 @@ function Members() {
 													placeholder='Please Write Your ID'
 													name='userid'
 													id='userid'
+													//value={Val.userid}
+													onChange={handleChange}
 												/>
-												<span className='err'></span>
+												<span className='err'>{Err.userid}</span>
 											</td>
 										</tr>
 
@@ -42,8 +165,9 @@ function Members() {
 													id='pwd1'
 													//value={Val.pwd1}
 													placeholder='● ● ● ● ● ● ●'
+													onChange={handleChange}
 												/>
-												<span className='err'></span>
+												<span className='err'>{Err.pwd1}</span>
 											</td>
 										</tr>
 										<tr>
@@ -51,8 +175,15 @@ function Members() {
 												<label htmlFor='pwd2'>RE-PASSWORD</label>
 											</th>
 											<td>
-												<input type='password' name='pwd2' id='pwd2' placeholder='● ● ● ● ● ● ●' />
-												<span className='err'></span>
+												<input
+													type='password'
+													name='pwd2'
+													id='pwd2'
+													//value={Val.pwd2}
+													placeholder='● ● ● ● ● ● ●'
+													onChange={handleChange}
+												/>
+												<span className='err'>{Err.pwd2}</span>
 											</td>
 										</tr>
 
@@ -64,45 +195,53 @@ function Members() {
 											<td>
 												<input
 													type='text'
-													id='email1'
-													name='email1'
-													placeholder='Write Your Email'
+													id='email'
+													name='email'
+													placeholder='Email address'
+													onChange={handleChange}
 												/>
 												<span>@</span>
-												<input type='text' id='email2' name='email2' placeholder='Direct input' />
-												<span className='err'></span>
-												<select name='emailDomain' id='emailDomain'>
-													<option value=''>직접입력</option>
+												<input type='text' id='domain' name='domain' placeholder='gmail.com' />
+												<select name='emailDomain' id='emailDomain' onChange={handleSelect}>
+													<option value=''>Direct input</option>
 													<option value='naver'>naver.com</option>
 													<option value='daum'>daum.net</option>
 													<option value='gmail'>gmail.com</option>
 													<option value='kakao'>kakao.com</option>
 												</select>
-												<span className='err'></span>
+												<span className='err'>{Err.email}</span>
+												<span className='err'>{Err.domain}</span>
+												<span className='err'>{Err.emailDomain}</span>
 											</td>
 										</tr>
+
 										{/* gender */}
 										<tr>
 											<th scope='row'>GENDER</th>
 											<td>
-												<input type='radio' id='male' name='gender' />
+												<input type='radio' id='male' name='gender' onChange={handleRadio} />
 												<label htmlFor='male'>MALE</label>
 
-												<input type='radio' id='female' name='gender' />
+												<input type='radio' id='female' name='gender' onChange={handleRadio} />
 												<label htmlFor='female'>FEMALE</label>
 
-												<span className='err'></span>
+												<span className='err'>{Err.gender}</span>
 											</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 						</div>
+
 						{/*필수약관동의*/}
 						<div className='formWrap'>
-							{/*이용약관동의 */}
-							<h1>Service Agreement</h1>
+							<h1>
+								Service Agreement
+								<br />
+								<span>(Required)</span>
+							</h1>
 							<div className='formSec formSec2'>
+								{/*이용약관동의 */}
 								<h2>
 									<label htmlFor='terms'>
 										Terms<span>of</span> service
@@ -176,8 +315,10 @@ function Members() {
 									</ul>
 								</div>
 								<div className='agreement'>
-									<input type='checkbox' name='agree' id='agree' />
-									<label htmlFor='agree'>I agree.</label>
+									<input type='checkbox' name='agreeSer' id='agreeSer' onChange={handleCheck} />
+									<label htmlFor='agreeSer'>I agree</label>
+
+									<span className='err'>{Err.agreeSer}</span>
 								</div>
 
 								{/*개인정보동의 */}
@@ -257,8 +398,10 @@ function Members() {
 									</ul>
 								</div>
 								<div className='agreement'>
-									<input type='checkbox' name='agree' id='agree' />
-									<label htmlFor='agree'> I agree.</label>
+									<input type='checkbox' name='agreePer' id='agreePer' onChange={handleCheck} />
+									<label htmlFor='agreePer'> I agree</label>
+
+									<span className='err'>{Err.agreePer}</span>
 								</div>
 							</div>
 						</div>
@@ -346,14 +489,17 @@ function Members() {
 										</li>
 									</ul>
 								</div>
+
 								<div className='agreement agreeMkt'>
-									<input type='checkbox' id='email' name='agree' />
-									<label htmlFor='agree'>E-MAIL</label>
+									<input type='checkbox' id='E-MAIL' name='agreeMkt' onChange={handleCheck} />
+									<label htmlFor='E-MAIL'>E-MAIL</label>
 
-									<input type='checkbox' id='sms' name='agree' />
-									<label htmlFor='disagree'>SMS</label>
+									<input type='checkbox' id='SMS' name='agreeMkt' onChange={handleCheck} />
+									<label htmlFor='SMS'>SMS</label>
 
-									<span className='err'></span>
+									<input type='checkbox' id='LATER' name='agreeMkt' onChange={handleCheck} />
+									<label htmlFor='LATER'>It's OK</label>
+									<span className='err'>{Err.agreeMkt}</span>
 								</div>
 							</div>
 						</div>
@@ -361,7 +507,7 @@ function Members() {
 						{/* btnSet */}
 						<div className='btnWrap'>
 							<input type='reset' value='CANCEL' />
-							<input type='submit' value='SUBMIT' />
+							<input type='submit' value='SUBMIT' onClick={() => setSubmit(true)} />
 						</div>
 					</fieldset>
 				</form>

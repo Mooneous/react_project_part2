@@ -39,6 +39,16 @@ function Community() {
 		);
 	};
 
+	//글 출력모드 변경함수
+	const disableUpdate = (index) => {
+		setPosts(
+			Posts.map((post, idx) => {
+				if (idx === index) post.enableUpdate = false;
+				return post;
+			})
+		);
+	};
+
 	useEffect(() => {
 		console.log(Posts);
 	}, [Posts]); //Posts값이 바뀔때마다
@@ -61,6 +71,7 @@ function Community() {
 					return (
 						<article key={idx}>
 							{post.enableUpdate ? (
+								//수정모드
 								<>
 									<div className='editTxt'>
 										<input type='text' defaultValue={post.title} />
@@ -73,12 +84,13 @@ function Community() {
 											defaultValue={post.content}></textarea>
 										<br />
 										<div className='btnSet'>
-											<button>CANCEL</button>
+											<button onClick={() => disableUpdate(idx)}>CANCEL</button>
 											<button>UPDATE</button>
 										</div>
 									</div>
 								</>
 							) : (
+								//출력모드
 								<>
 									<div className='txt'>
 										<h2>{post.title}</h2>

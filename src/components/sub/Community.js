@@ -44,7 +44,7 @@ function Community() {
 		}
 		//console.log('title', input.current.value);
 		//console.log('content', textarea.current.value);
-		setPosts([...Posts, { title: input.current.value, content: textarea.current.value }]);
+		setPosts([{ title: input.current.value, content: textarea.current.value }, ...Posts]); //새로 입력한 글이 상단에 뜨도록 자리바꿈
 		resetForm();
 	};
 

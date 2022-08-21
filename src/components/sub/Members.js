@@ -244,7 +244,7 @@ function Members() {
 								{/*이용약관동의 */}
 								<h2>
 									<label htmlFor='terms'>
-										Terms<span>of</span> service
+										Terms<span>of</span> Service
 									</label>
 								</h2>
 								<div className='terms'>

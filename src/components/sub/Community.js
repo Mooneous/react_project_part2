@@ -106,7 +106,7 @@ function Community() {
 	return (
 		<Layout name={'Community'}>
 			<div className='inputBox'>
-				<input type='text' placeholdler='제목을 입력하세요' ref={input} />
+				<input type='text' placeholder='제목을 입력하세요' ref={input} />
 				<br />
 				<textarea cols='30' rows='3' placeholder='본문을 입력하세요' ref={textarea}></textarea>
 				<br />

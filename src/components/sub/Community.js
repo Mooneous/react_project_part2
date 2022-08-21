@@ -19,13 +19,13 @@ function Community() {
 		];
 
 		const data = localStorage.getItem('post');
-
-		if (data) {
-			//data있으면
-			return JSON.parse(data); //JSON으로 갖고와
-		} else {
-			return dummyPosts; //아니면 dummyPosts 보여줘~
-		}
+		return JSON.parse(data);
+		// if (data) {
+		// 	//data있으면
+		// 	return JSON.parse(data); //JSON으로 갖고와
+		// } else {
+		// 	return dummyPosts; //아니면 dummyPosts 보여줘~
+		// }
 	};
 
 	//초기 Posts스테이트에 로컬스토리지의 데이터를 가져와서 저장

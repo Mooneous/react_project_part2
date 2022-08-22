@@ -1,7 +1,8 @@
 import Anime from '../../assets/Anime';
 import { useEffect, useRef } from 'react';
 
-function Btns() {
+//3.props 가져오기
+function Btns({ setScrolled }) {
 	const pos = useRef([]);
 	const btnRef = useRef(null);
 	const speed = 500;
@@ -20,6 +21,8 @@ function Btns() {
 		const scroll = window.scrollY;
 		const btns = btnRef.current.children;
 		const secs = btnRef.current.parentElement.querySelectorAll('.myScroll');
+
+		setScrolled(scroll); //4.
 
 		pos.current.map((pos, idx) => {
 			if (scroll >= pos + base) {

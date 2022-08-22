@@ -35,7 +35,7 @@ function News() {
 		<section id='news' className='myScroll'>
 			<h1>News</h1>
 			{Posts.map((post, idx) => {
-				if (idx >= 3) return; //post 3개까지만 보여주고 끝~
+				if (idx >= 4) return; //post 4개까지만 보여주고 끝~
 				return (
 					<article key={idx}>
 						<h2>{post.title}</h2>

@@ -5,11 +5,12 @@ function Btns() {
 	const pos = useRef([]);
 	const btnRef = useRef(null);
 	const speed = 500;
+	const num = 4;
 
 	//세로 스크롤 위치값 구하는 함수
 	const getPos = () => {
 		pos.current = [];
-		const secs = btnRef.current.parentElement.querySelectorAll('.myScroll');
+		const secs = btnRef.current.parentElement.querySelectorAll('.myScroll'); //Btns의 부모요소(루트컴포넌트?)를 찾아서 쿼리셀렉트올로 비주얼뉴스픽스비즈의 마이스크롤을 찾아랏!
 		for (const sec of secs) pos.current.push(sec.offsetTop);
 	};
 
@@ -28,6 +29,7 @@ function Btns() {
 
 	//윈도우객체에 리사이즈, 스크롤 이벤트 연결
 	useEffect(() => {
+		btnRef.current.children[0].classList.add('on'); //li첫번째요소에on추가
 		getPos();
 		window.addEventListener('resize', getPos);
 		window.addEventListener('scroll', activation);
@@ -39,7 +41,7 @@ function Btns() {
 
 	return (
 		<ul className='scroll_navi' ref={btnRef}>
-			{Array(4)
+			{Array(num)
 				.fill()
 				.map((_, idx) => {
 					return (

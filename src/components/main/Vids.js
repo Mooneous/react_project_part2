@@ -15,11 +15,21 @@ function Vids() {
 				loop={true}
 				slidesPerView={3}
 				centeredSlides={true}>
-				<SwiperSlide>1</SwiperSlide>
-				<SwiperSlide>2</SwiperSlide>
-				<SwiperSlide>3</SwiperSlide>
-				<SwiperSlide>4</SwiperSlide>
-				<SwiperSlide>5</SwiperSlide>
+				<SwiperSlide>
+					<div className='inner'>1</div>
+				</SwiperSlide>
+				<SwiperSlide>
+					<div className='inner'>2</div>
+				</SwiperSlide>
+				<SwiperSlide>
+					<div className='inner'>3</div>
+				</SwiperSlide>
+				<SwiperSlide>
+					<div className='inner'>4</div>
+				</SwiperSlide>
+				<SwiperSlide>
+					<div className='inner'>5</div>
+				</SwiperSlide>
 			</Swiper>
 		</section>
 	);

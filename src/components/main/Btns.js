@@ -1,8 +1,8 @@
 import Anime from '../../assets/Anime';
 import { useEffect, useRef } from 'react';
 
-//3.props 가져오기
-function Btns({ setScrolled }) {
+//7. setPos프롭스로전달받음
+function Btns({ setScrolled, setPos }) {
 	const pos = useRef([]);
 	const btnRef = useRef(null);
 	const speed = 500;
@@ -13,6 +13,8 @@ function Btns({ setScrolled }) {
 		pos.current = [];
 		const secs = btnRef.current.parentElement.querySelectorAll('.myScroll'); //Btns의 부모요소(루트컴포넌트?)를 찾아서 쿼리셀렉트올로 비주얼뉴스픽스비즈의 마이스크롤을 찾아랏!
 		for (const sec of secs) pos.current.push(sec.offsetTop);
+		//8.
+		setPos(pos.current);
 	};
 
 	//스크롤시 버튼 활성화 함수
@@ -22,7 +24,7 @@ function Btns({ setScrolled }) {
 		const btns = btnRef.current.children;
 		const secs = btnRef.current.parentElement.querySelectorAll('.myScroll');
 
-		setScrolled(scroll); //4.
+		setScrolled(scroll);
 
 		pos.current.map((pos, idx) => {
 			if (scroll >= pos + base) {

@@ -4,22 +4,23 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 function Gallery() {
-	const key = 'e3e1c697d136946fb4d52bffc2cc35b7';
-	const method_interest = 'flickr.interestingness.getList';
-	const num = 20;
-	const id = '164021883@N04';
-	const url = `https://www.flickr.com/services/rest/?method=${method_interest}&per_page=${num}&api_key=${key}&format=json&nojsoncallback=1`;
-
 	const [Items, setItems] = useState([]);
 	const [Index, setIndex] = useState(0);
 	const [Open, setOpen] = useState(false);
 
-	useEffect(() => {
+	const getFlickr = () => {
+		const key = 'e3e1c697d136946fb4d52bffc2cc35b7';
+		const method_interest = 'flickr.interestingness.getList';
+		const num = 20;
+		const url = `https://www.flickr.com/services/rest/?method=${method_interest}&per_page=${num}&api_key=${key}&format=json&nojsoncallback=1`;
+
 		axios.get(url).then((json) => {
 			console.log(json.data.photos.photo);
 			setItems(json.data.photos.photo);
 		});
-	}, []);
+	};
+
+	useEffect(getFlickr, []);
 
 	return (
 		<>

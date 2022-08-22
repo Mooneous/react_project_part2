@@ -15,6 +15,13 @@ function Pics({ Scrolled, currentPos }) {
 				}}>
 				GALLERY
 			</h2>
+			{/*position 단위가 천이라서 나누기 천 */}
+			<div
+				className='box'
+				style={{
+					transform: `scale(${1 + position / 1000})`,
+					opacity: 1 - position / 1000,
+				}}></div>
 		</section>
 	);
 }

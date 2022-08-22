@@ -1,7 +1,6 @@
 import Anime from '../../assets/Anime';
 import { useEffect, useRef } from 'react';
 
-//7. setPos프롭스로전달받음
 function Btns({ setScrolled, setPos }) {
 	const pos = useRef([]);
 	const btnRef = useRef(null);
@@ -13,7 +12,6 @@ function Btns({ setScrolled, setPos }) {
 		pos.current = [];
 		const secs = btnRef.current.parentElement.querySelectorAll('.myScroll'); //Btns의 부모요소(루트컴포넌트?)를 찾아서 쿼리셀렉트올로 비주얼뉴스픽스비즈의 마이스크롤을 찾아랏!
 		for (const sec of secs) pos.current.push(sec.offsetTop);
-		//8.
 		setPos(pos.current);
 	};
 

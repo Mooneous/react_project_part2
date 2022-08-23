@@ -35,17 +35,21 @@ function Gallery() {
 			url = `https://www.flickr.com/services/rest/?method=${method_search}&per_page=${num}&api_key=${key}&format=json&nojsoncallback=1&tags=${opt.tag}`;
 
 		await axios.get(url).then((json) => {
+			//검색어의 결과값이 없을때 경고창 띄우고 이전 결과물 다시 출력
 			console.log(json.data.photos.photo);
+			if (json.data.photos.photo.length === 0) return alert('해당 검색어의 결과값이 없습니다.');
 			setItems(json.data.photos.photo);
 		});
-		frame.current.classList.add('on');
 
 		setTimeout(() => {
 			frame.current.classList.add('on');
 			//로딩완료후 로딩상태false로변경
 			setLoading(false);
-			//로딩완료후 클릭가능상태true로변경
-			setEnableClick(true);
+			setTimeout(() => {
+				//올라오는 0.5초동안은막아지지않으므로
+				//로딩완료후 클릭가능상태true로변경
+				setEnableClick(true);
+			}, 500);
 		}, 1000);
 	};
 
@@ -92,7 +96,14 @@ function Gallery() {
 
 				{/*검색박스 */}
 				<div className='searchBox'>
-					<input type='text' ref={input} />
+					{/*엔터키를눌렀다떼는이벤트발생하면showSearch함수수행하시게~*/}
+					<input
+						type='text'
+						ref={input}
+						onKeyUp={(e) => {
+							if (e.key === 'Enter') showSearch();
+						}}
+					/>
 					<button onClick={showSearch}>search</button>
 				</div>
 
@@ -146,3 +157,8 @@ user_id = 196156351@N07
 gallery_id = 72157720916413734
 */
 /*react-masonry component검색(masonry리액트컴포넌트사용법알려쥼)*/
+/*
+	onKeyDown //키를 누를때
+	onKeyUp //키를 눌렀다 뗐을때 (추천)
+	onKeyPress //눌렀다 뗐을때 (한글자판에서는 안먹는 키가 있음)
+*/

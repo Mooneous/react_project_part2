@@ -11,13 +11,14 @@ function Gallery() {
 	const [Index, setIndex] = useState(0);
 	const [Open, setOpen] = useState(false);
 	const [Loading, setLoading] = useState(true);
+	const [EnableClick, setEnableClick] = useState(false);
 	//masonry 전환속도 옵션객체 설정
 	const masonryOptions = { transitionDuration: '0.5s' };
 
 	const key = '4612601b324a2fe5a1f5f7402bf8d87a';
 	const method_interest = 'flickr.interestingness.getList';
 	const method_user = 'flickr.people.getPhotos';
-	const num = 200;
+	const num = 500;
 	const user = '164021883@N04';
 	const url_interest = `https://www.flickr.com/services/rest/?method=${method_interest}&per_page=${num}&api_key=${key}&format=json&nojsoncallback=1`;
 	const url_user = `https://www.flickr.com/services/rest/?method=${method_user}&per_page=${num}&api_key=${key}&format=json&nojsoncallback=1&user_id=${user}`;
@@ -30,10 +31,11 @@ function Gallery() {
 		frame.current.classList.add('on');
 	};
 
-	//(getFlickr에서 리스트데이터 가져오고)masonry 박스정렬시간동안 1초 기다린후(setTimeout)frame에 on걸려 아래서 올라오면 로딩바 사라지지!
+	//(getFlickr에서 리스트데이터 가져오고)masonry 박스정렬시간동안 1초 기다린후(setTimeout)frame에 on걸려 아래서 올라오면 로딩바 사라지지! 그리고나서 버튼클릭 가능!(광클릭 노노)
 	setTimeout(() => {
 		frame.current.classList.add('on');
 		setLoading(false);
+		setEnableClick(true);
 	}, 1000);
 
 	useEffect(() => getFlickr(url_interest), []);
@@ -41,20 +43,24 @@ function Gallery() {
 	return (
 		<>
 			<Layout name={'Gallery'}>
-				{/*로딩바보이고 frame 올라오기*/}
+				{/*EnableClick이 true가 아니면 이미지로딩완료상태 아니니 다음으로못가여기서끝~(재호출방지) enableClick이 true면 이미지로딩완료상태니뒤함수실행 로딩바보이고 frame 올라오기 그리고 setEnableClick스테이트값은false로*/}
 				<button
 					onClick={() => {
+						if (!EnableClick) return;
 						setLoading(true);
 						frame.current.classList.remove('on');
 						getFlickr(url_user);
+						setEnableClick(false);
 					}}>
 					My Gallery
 				</button>
 				<button
 					onClick={() => {
+						if (!EnableClick) return;
 						setLoading(true);
 						frame.current.classList.remove('on');
 						getFlickr(url_interest);
+						setEnableClick(false);
 					}}>
 					Interest Gallery
 				</button>

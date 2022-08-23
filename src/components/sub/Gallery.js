@@ -8,10 +8,10 @@ import { useEffect, useState, useRef } from 'react';
 function Gallery() {
 	const frame = useRef(null);
 	const input = useRef(null);
-
+	//추후 자식컴포넌트인 Popup에서 forwardRef로 전달되는 객체값을 참조하기위한 빈 참조객체 생성
+	const popup = useRef(null);
 	const [Items, setItems] = useState([]);
 	const [Index, setIndex] = useState(0);
-	const [Open, setOpen] = useState(false);
 	const [Loading, setLoading] = useState(true);
 	const [EnableClick, setEnableClick] = useState(false);
 	//masonry 전환속도 옵션객체 설정
@@ -89,7 +89,7 @@ function Gallery() {
 	};
 
 	//처음  호출시에는 interest방식으로 호출
-	useEffect(() => getFlickr({ type: 'interest' }), []);
+	useEffect(() => getFlickr({ type: 'user', user: user }), []);
 
 	return (
 		<>
@@ -125,7 +125,7 @@ function Gallery() {
 											className='pic'
 											onClick={() => {
 												setIndex(idx);
-												setOpen(true);
+												popup.current.open(); //setOpen(true)와 같은말
 											}}>
 											<img
 												src={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_m.jpg`}
@@ -158,15 +158,16 @@ function Gallery() {
 					</Masonry>
 				</div>
 			</Layout>
-
-			{Open && (
-				<Popup setOpen={setOpen}>
+			{/*forwardRef내의 useImperativeHandle의 객체참조하게됨 : Popup컴포넌트에 참조객체 popup연결 - 원래 컴포넌트에는 참조객체연결이 불가하나 forwardRef로 전달되고 있으면 참조가능 */}
+			<Popup ref={popup}>
+				{/*Popup의 틀 자체는 부모요소에 계속 마운트되어 있다보니 아직 Items의 값이 불러와지지 않았을떄에는 오류 발생 : 처음마운트됐을때Items값은비어있다가2번째재렌더링될때axios함수가값을변경시킴 그래서처음오류발생하지않도록 조건문사용 : Items의 값이 비어있지 않을떄 img에 Popup에 출력되도록 설정 : Popup컴포넌트는출력하더라도Items의데이터값이받아지지않으면img내용출력되지않는다*/}
+				{Items.length !== 0 && (
 					<img
 						src={`https://live.staticflickr.com/${Items[Index].server}/${Items[Index].id}_${Items[Index].secret}_b.jpg`}
 						alt={Items[Index].title}
 					/>
-				</Popup>
-			)}
+				)}
+			</Popup>
 		</>
 	);
 }

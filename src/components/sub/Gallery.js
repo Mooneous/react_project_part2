@@ -4,32 +4,47 @@ import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 
 function Gallery() {
-	//3. frame 참조객체 생성
 	const frame = useRef(null);
 	const [Items, setItems] = useState([]);
 	const [Index, setIndex] = useState(0);
 	const [Open, setOpen] = useState(false);
-	//2. async await로 동기화
-	const getFlickr = async () => {
-		const key = 'e3e1c697d136946fb4d52bffc2cc35b7';
-		const method_interest = 'flickr.interestingness.getList';
-		const num = 20;
-		const url = `https://www.flickr.com/services/rest/?method=${method_interest}&per_page=${num}&api_key=${key}&format=json&nojsoncallback=1`;
 
+	const key = '4612601b324a2fe5a1f5f7402bf8d87a';
+	const method_interest = 'flickr.interestingness.getList';
+	const method_user = 'flickr.people.getPhotos';
+	const num = 200;
+	const user = '164021883@N04';
+	const url_interest = `https://www.flickr.com/services/rest/?method=${method_interest}&per_page=${num}&api_key=${key}&format=json&nojsoncallback=1`;
+	const url_user = `https://www.flickr.com/services/rest/?method=${method_user}&per_page=${num}&api_key=${key}&format=json&nojsoncallback=1&user_id=${user}`;
+
+	const getFlickr = async (url) => {
 		await axios.get(url).then((json) => {
 			console.log(json.data.photos.photo);
 			setItems(json.data.photos.photo);
 		});
-		//5. 이미지데이터를 모두 불러온 후 현재frame에 클래스 on 추가(6. 하면 이미지들 아래서 위로 올라옴 - css효과)
 		frame.current.classList.add('on');
 	};
 
-	useEffect(getFlickr, []);
+	useEffect(() => getFlickr(url_interest), []);
 
 	return (
 		<>
 			<Layout name={'Gallery'}>
-				{/*1. class.on지우기 4.ref로 참조*/}
+				{/*클릭했을때 frame에 on제거(->순간적으로 내려갔다가)getFlicker호출(->frame에on추가돼 올라옴)*/}
+				<button
+					onClick={() => {
+						frame.current.classList.remove('on');
+						getFlickr(url_user);
+					}}>
+					My Gallery
+				</button>
+				<button
+					onClick={() => {
+						frame.current.classList.remove('on');
+						getFlickr(url_interest);
+					}}>
+					Interest Gallery
+				</button>
 				<div className='frame' ref={frame}>
 					{Items.map((pic, idx) => {
 						return (

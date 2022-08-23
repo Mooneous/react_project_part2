@@ -49,53 +49,51 @@ function Gallery() {
 		}, 1000);
 	};
 
+	//user요청 함수
+	const showUser = () => {
+		if (!EnableClick) return;
+		setLoading(true);
+		frame.current.classList.remove('on');
+		getFlickr({ type: 'user', user: user });
+		setEnableClick(false);
+	};
+
+	//interest요청 함수
+	const showInterest = () => {
+		if (!EnableClick) return;
+		setLoading(true);
+		frame.current.classList.remove('on');
+		getFlickr({ type: 'interest' });
+		setEnableClick(false);
+	};
+
+	//search요청 함수
+	const showSearch = () => {
+		const result = input.current.value.trim();
+		if (!result) return alert('검색어를 입력하세요');
+		if (!EnableClick) return;
+		setEnableClick(false);
+		setLoading(true);
+		frame.current.classList.remove('on');
+		//getFlickr search url마지막 opt.tag의 tag에 result넣는건가봄~
+		getFlickr({ type: 'search', tag: result });
+		//검색후 검색창 초기화
+		input.current.value = '';
+	};
+
 	//처음  호출시에는 interest방식으로 호출
 	useEffect(() => getFlickr({ type: 'interest' }), []);
 
 	return (
 		<>
 			<Layout name={'Gallery'}>
-				{/*EnableClick이 true가 아니면 이미지로딩완료상태 아니니 다음으로못가여기서끝~(재호출방지) enableClick이 true면 이미지로딩완료상태니뒤함수실행 로딩바보이고 frame 올라오기 그리고 setEnableClick스테이트값은false로*/}
-				<button
-					onClick={() => {
-						if (!EnableClick) return;
-						setLoading(true);
-						frame.current.classList.remove('on');
-						//user 갤러리 호출시에는 추가로 user키값에 검색하고자 하는 유저아이디 전달
-						getFlickr({ type: 'user', user: user });
-						setEnableClick(false);
-					}}>
-					My Gallery
-				</button>
-				<button
-					onClick={() => {
-						if (!EnableClick) return;
-						setLoading(true);
-						frame.current.classList.remove('on');
-						getFlickr({ type: 'interest' });
-						setEnableClick(false);
-					}}>
-					Interest Gallery
-				</button>
+				<button onClick={showInterest}>My Gallery</button>
+				<button onClick={showInterest}>Interest Gallery</button>
 
 				{/*검색박스 */}
 				<div className='searchBox'>
 					<input type='text' ref={input} />
-					<button
-						onClick={() => {
-							const result = input.current.value.trim();
-							if (!result) return alert('검색어를 입력하세요');
-							if (!EnableClick) return;
-							setEnableClick(false);
-							setLoading(true);
-							frame.current.classList.remove('on');
-							//getFlickr search url마지막 opt.tag의 tag에 result넣는건가봄~
-							getFlickr({ type: 'search', tag: result });
-							//검색후 검색창 초기화
-							input.current.value = '';
-						}}>
-						search
-					</button>
+					<button onClick={showSearch}>search</button>
 				</div>
 
 				{Loading && <img className='loading' src={process.env.PUBLIC_URL + '/img/loading.gif'} />}

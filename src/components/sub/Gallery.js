@@ -1,5 +1,7 @@
 import Layout from '../common/Layout';
 import Popup from '../common/Popup';
+//npm i react-masonry-component
+import Masonry from 'react-masonry-component';
 import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 
@@ -8,6 +10,8 @@ function Gallery() {
 	const [Items, setItems] = useState([]);
 	const [Index, setIndex] = useState(0);
 	const [Open, setOpen] = useState(false);
+	//masonry 전환속도 옵션객체 설정
+	const masonryOptions = { transitionDuration: '0.5s' };
 
 	const key = '4612601b324a2fe5a1f5f7402bf8d87a';
 	const method_interest = 'flickr.interestingness.getList';
@@ -30,7 +34,6 @@ function Gallery() {
 	return (
 		<>
 			<Layout name={'Gallery'}>
-				{/*클릭했을때 frame에 on제거(->순간적으로 내려갔다가)getFlicker호출(->frame에on추가돼 올라옴)*/}
 				<button
 					onClick={() => {
 						frame.current.classList.remove('on');
@@ -46,26 +49,29 @@ function Gallery() {
 					Interest Gallery
 				</button>
 				<div className='frame' ref={frame}>
-					{Items.map((pic, idx) => {
-						return (
-							<article
-								key={idx}
-								onClick={() => {
-									setIndex(idx);
-									setOpen(true);
-								}}>
-								<div className='inner'>
-									<div className='pic'>
-										<img
-											src={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_m.jpg`}
-											alt={pic.title}
-										/>
+					{/* masonry를 적용한 요소들의 부모컴포넌트를 Masonry로 만들고 태그명 지정하고 옵션객체 연결 */}
+					<Masonry elementType={'div'} options={masonryOptions}>
+						{Items.map((pic, idx) => {
+							return (
+								<article
+									key={idx}
+									onClick={() => {
+										setIndex(idx);
+										setOpen(true);
+									}}>
+									<div className='inner'>
+										<div className='pic'>
+											<img
+												src={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_m.jpg`}
+												alt={pic.title}
+											/>
+										</div>
+										<h2>{pic.title}</h2>
 									</div>
-									<h2>{pic.title}</h2>
-								</div>
-							</article>
-						);
-					})}
+								</article>
+							);
+						})}
+					</Masonry>
 				</div>
 			</Layout>
 			{Open && (
@@ -88,3 +94,4 @@ flickr api로 검색(플리커개발자페이지-flickr service로 들어가기)
 user_id = 196156351@N07
 gallery_id = 72157720916413734
 */
+/*react-masonry component검색(masonry리액트컴포넌트사용법알려쥼)*/

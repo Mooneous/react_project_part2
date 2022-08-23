@@ -10,6 +10,7 @@ function Gallery() {
 	const [Items, setItems] = useState([]);
 	const [Index, setIndex] = useState(0);
 	const [Open, setOpen] = useState(false);
+	const [Loading, setLoading] = useState(true);
 	//masonry 전환속도 옵션객체 설정
 	const masonryOptions = { transitionDuration: '0.5s' };
 
@@ -29,13 +30,21 @@ function Gallery() {
 		frame.current.classList.add('on');
 	};
 
+	//(getFlickr에서 리스트데이터 가져오고)masonry 박스정렬시간동안 1초 기다린후(setTimeout)frame에 on걸려 아래서 올라오면 로딩바 사라지지!
+	setTimeout(() => {
+		frame.current.classList.add('on');
+		setLoading(false);
+	}, 1000);
+
 	useEffect(() => getFlickr(url_interest), []);
 
 	return (
 		<>
 			<Layout name={'Gallery'}>
+				{/*로딩바보이고 frame 올라오기*/}
 				<button
 					onClick={() => {
+						setLoading(true);
 						frame.current.classList.remove('on');
 						getFlickr(url_user);
 					}}>
@@ -43,11 +52,15 @@ function Gallery() {
 				</button>
 				<button
 					onClick={() => {
+						setLoading(true);
 						frame.current.classList.remove('on');
 						getFlickr(url_interest);
 					}}>
 					Interest Gallery
 				</button>
+
+				{Loading && <img className='loading' src={process.env.PUBLIC_URL + '/img/loading.gif'} />}
+
 				<div className='frame' ref={frame}>
 					{/* masonry를 적용한 요소들의 부모컴포넌트를 Masonry로 만들고 태그명 지정하고 옵션객체 연결 */}
 					<Masonry elementType={'div'} options={masonryOptions}>
@@ -74,6 +87,7 @@ function Gallery() {
 					</Masonry>
 				</div>
 			</Layout>
+
 			{Open && (
 				<Popup setOpen={setOpen}>
 					<img

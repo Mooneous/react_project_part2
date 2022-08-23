@@ -1,13 +1,10 @@
 import { useEffect, useState, forwardRef, useImperativeHandle } from 'react';
+//framer-motion설치 : npm i framer-motion@6 (최신버전아님,리액트버전이랑안맞어)
+import { motion, AnimatePresence } from 'framer-motion';
 
-//부모요소에서 해당 컴포넌트를 참조할 수 있도록 forwardRef의 인수값으로 자기자신함수를 그대로 전달
 const Popup = forwardRef(({ children }, ref) => {
-	//내부적으로 팝업의 컨텐츠 출력여부를 결정할 Open 스테이트 생성
 	const [Open, setOpen] = useState(false);
 
-	//팝업열어주는 함수를 open이라는 키값에 담아서 객체를 리턴해주는 useImperativeHandle함수 호출
-	//부모요소에서는 해당 리턴값을 참조하게됨
-	//만약 해당 함수가 없으면 부모요소는 Pop컴포넌트 자체를 참조하게 됨
 	useImperativeHandle(ref, () => {
 		return {
 			open: () => setOpen(true),
@@ -21,15 +18,34 @@ const Popup = forwardRef(({ children }, ref) => {
 
 	return (
 		<>
-			{/* Open 스테이트값이 true일때만 내부 컨텐츠 출력 */}
-			{Open && (
-				<aside className='popup'>
-					<div className='con'>{children}</div>
-					<span className='close' onClick={() => setOpen(false)}>
-						close
-					</span>
-				</aside>
-			)}
+			{/* 위치중요>..<Open안아니아니되오*/}
+			<AnimatePresence>
+				{/* Open 스테이트값이 true일때만 내부 컨텐츠 출력 */}
+				{Open && (
+					<motion.aside
+						className='popup'
+						initial={{ opacity: 0, scale: 0, x: '100%', rotate: '220deg' }}
+						animate={{
+							opacity: 1,
+							scale: 1,
+							x: '0%',
+							rotate: '0deg',
+							transition: { duration: 0.5 },
+						}}
+						exit={{
+							opacity: 0,
+							scale: 0,
+							x: '100%',
+							rotate: '220deg',
+							transition: { duration: 0.5 },
+						}}>
+						<div className='con'>{children}</div>
+						<span className='close' onClick={() => setOpen(false)}>
+							close
+						</span>
+					</motion.aside>
+				)}
+			</AnimatePresence>
 		</>
 	);
 });

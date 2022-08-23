@@ -57,11 +57,11 @@ function Gallery() {
 	};
 
 	//user요청 함수
-	const showUser = () => {
+	const showUser = (e) => {
 		if (!EnableClick) return;
 		setLoading(true);
 		frame.current.classList.remove('on');
-		getFlickr({ type: 'user', user: user });
+		getFlickr({ type: 'user', user: e.target.getAttribute('user') });
 		setEnableClick(false);
 	};
 
@@ -94,7 +94,9 @@ function Gallery() {
 	return (
 		<>
 			<Layout name={'Gallery'}>
-				<button onClick={showInterest}>My Gallery</button>
+				<button user={user} onClick={showUser}>
+					My Gallery
+				</button>
 				<button onClick={showInterest}>Interest Gallery</button>
 
 				{/*검색박스 */}
@@ -117,14 +119,14 @@ function Gallery() {
 					<Masonry elementType={'div'} options={masonryOptions}>
 						{Items.map((pic, idx) => {
 							return (
-								<article
-									key={idx}
-									onClick={() => {
-										setIndex(idx);
-										setOpen(true);
-									}}>
+								<article key={idx}>
 									<div className='inner'>
-										<div className='pic'>
+										<div
+											className='pic'
+											onClick={() => {
+												setIndex(idx);
+												setOpen(true);
+											}}>
 											<img
 												src={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_m.jpg`}
 												alt={pic.title}
@@ -145,7 +147,9 @@ function Gallery() {
 													);
 												}}
 											/>
-											<span>{pic.owner}</span>
+											<span user={pic.owner} onClick={showUser}>
+												{pic.owner}
+											</span>
 										</div>
 									</div>
 								</article>

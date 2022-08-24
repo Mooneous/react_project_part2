@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 import { Link, NavLink } from 'react-router-dom';
+import Menu from './Menu';
 
 function Header(props) {
 	const active = { color: 'cornflowerblue' };
@@ -9,12 +10,13 @@ function Header(props) {
 	return (
 		<header className={props.type}>
 			<h1>
-				<Link to='/'>JO MALONE</Link>
-				<br />
-				<span>SEAOUL</span>
+				<Link to='/'>
+					JO MALONE <br />
+					<span>SEAOUL</span>
+				</Link>
 			</h1>
 
-			<nav>
+			<nav id='webGnb'>
 				<ul className='gnb gnbL'>
 					<li>
 						<NavLink to='/community' activeStyle={active}>
@@ -56,6 +58,7 @@ function Header(props) {
 			</nav>
 
 			<FontAwesomeIcon icon={faBars} />
+			<Menu />
 		</header>
 	);
 }

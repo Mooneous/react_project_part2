@@ -6,23 +6,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
 
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 function Youtube() {
+	const popup = useRef(null);
 	const [Vids, setVids] = useState([]);
 	const [Open, setOpen] = useState(false); //초기값 : 안보이게 false
 	const [Index, setIndex] = useState(0);
 
-	useEffect(() => {
+	const getYoutube = async () => {
 		const key = 'AIzaSyB5JZfJTpMHm2WfEEIid2Dt443MfKM9XAU';
 		const playlist = 'PL0niq1d_d9TP1sXECKOKrBpMhjbkfrjsE';
 		const num = 3;
 		const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=${key}&playlistId=${playlist}&maxResults=${num}`;
-		axios.get(url).then((json) => {
+
+		await axios.get(url).then((json) => {
 			//console.log(json.data.items);
 			setVids(json.data.items);
 		});
-	}, []);
+	};
+
+	useEffect(getYoutube, []);
 
 	return (
 		<>
@@ -30,10 +34,10 @@ function Youtube() {
 				{Vids.map((vid, idx) => {
 					return (
 						<article
-							key={idx}
+							key={vid.id}
 							onClick={() => {
-								setOpen(true);
 								setIndex(idx);
+								popup.current.open();
 							}}>
 							<div className='number'>
 								<span>0{idx + 1}</span>
@@ -69,15 +73,13 @@ function Youtube() {
 				})}
 			</Layout>
 
-			{/* Open이라는 state값이 true일때만 팝업보여주기 그리고 setOpen스테이트 명으로 setOpen스테이트변경함수를 전달 */}
-			{Open && (
-				<Popup setOpen={setOpen}>
+			<Popup ref={popup}>
+				{Vids.length !== 0 && (
 					<iframe
 						src={`https://www.youtube.com/embed/${Vids[Index].snippet.resourceId.videoId}`}
 						frameBorder='0'></iframe>
-					{/*카멜케이스?frameborder소문자아니죠frameBorder대문자맞죠*/}
-				</Popup>
-			)}
+				)}
+			</Popup>
 		</>
 	);
 }

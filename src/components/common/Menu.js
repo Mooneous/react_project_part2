@@ -1,6 +1,7 @@
 import { NavLink, Link } from 'react-router-dom';
 import { useState, forwardRef, useImperativeHandle } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect } from 'react';
 
 const Menu = forwardRef((props, ref) => {
 	const [Open, setOpen] = useState(false);
@@ -13,13 +14,19 @@ const Menu = forwardRef((props, ref) => {
 		};
 	});
 
+	useEffect(() => {
+		window.addEventListener('resize', () => {
+			const wid = window.innerWidth;
+			if (wid >= 1280) setOpen(false);
+		});
+	}, []);
+
 	return (
 		<AnimatePresence>
 			{Open && (
 				<motion.nav
 					id='mobileGnb'
-          {/*토글일때필요 
-					onClick={() => setOpen(!Open)}*/}
+					/*토글일때필요 onClick={() => setOpen(!Open)}*/
 					initial={{ opacity: 0, x: 320 }}
 					animate={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
 					exit={{ opacity: 0, x: 320, transition: { duration: 0.5 } }}>

@@ -18,10 +18,16 @@ const Menu = forwardRef((props, ref) => {
 			{Open && (
 				<motion.nav
 					id='mobileGnb'
-					initial={{ opacity: 0, scale: 0 }}
-					animate={{ opacity: 1, scale: 1, transition: { duration: 0.5, delay: 0 } }}
-					exit={{ opacity: 0, scale: 0, transition: { duration: 0.5, delay: 0.5 } }}>
-					<div className='navWrap'>
+          {/*토글일때필요 
+					onClick={() => setOpen(!Open)}*/}
+					initial={{ opacity: 0, x: 320 }}
+					animate={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
+					exit={{ opacity: 0, x: 320, transition: { duration: 0.5 } }}>
+					<motion.div
+						className='navWrap'
+						initial={{ opacity: 0, x: 320 }}
+						animate={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+						exit={{ opacity: 0, x: 320, transition: { duration: 0.5 } }}>
 						<motion.h1
 							initial={{ opacity: 0, scale: 0 }}
 							animate={{ opacity: 1, scale: 1, transition: { duration: 0.5, delay: 1 } }}
@@ -64,7 +70,7 @@ const Menu = forwardRef((props, ref) => {
 								</NavLink>
 							</li>
 						</ul>
-					</div>
+					</motion.div>
 				</motion.nav>
 			)}
 		</AnimatePresence>

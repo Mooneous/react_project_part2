@@ -4,22 +4,66 @@
 	position: fixed;
 	top: 0;
 	right: 0;
-	background: #666;
+	background: rgb(102, 102, 102, 0.5);
 	z-index: 5;
-	padding: 50px;
 
-	h1 {
-		margin-bottom: 50px;
-	}
+	.navWrap {
+		width: 70%;
+		height: 100vh;
+		background-color: #666;
+		margin-left: 30%;
+		padding: 50px;
 
-	ul {
-		li {
+		h1 {
+			margin-bottom: 50px;
 			a {
+				font-family: lato;
+				span {
+					font-family: lato;
+				}
+			}
+		}
+		.exit {
+			width: 30px;
+			height: 30px;
+			position: absolute;
+			z-index: 6;
+			top: 30px;
+			right: 10vw;
+			cursor: pointer;
+
+			&::before {
+				content: '';
 				display: block;
-				height: 50px;
-				font: 16px/50px 'Lato';
-				text-align: center;
-				color: #bbb;
+				width: 30px;
+				height: 1px;
+				background-color: #ccc;
+				position: absolute;
+				top: 50%;
+				transform: rotate(45deg);
+			}
+
+			&::after {
+				content: '';
+				display: block;
+				width: 30px;
+				height: 1px;
+				background-color: #ccc;
+				position: absolute;
+				bottom: 50%;
+				transform: rotate(-45deg);
+			}
+		}
+
+		ul {
+			li {
+				a {
+					display: block;
+					height: 50px;
+					font: 35px/50px 'Cormorant Garamond';
+					color: #bbb;
+					padding: 40px 0;
+				}
 			}
 		}
 	}

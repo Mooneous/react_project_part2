@@ -2,9 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 import { Link, NavLink } from 'react-router-dom';
+import { useRef } from 'react';
 import Menu from './Menu';
 
 function Header(props) {
+	//menu컴포넌트에 전달해주는 토글 기능을 담을 참조객체 생성
+	const menu = useRef(null);
 	const active = { color: 'cornflowerblue' };
 
 	return (
@@ -57,8 +60,10 @@ function Header(props) {
 				</ul>
 			</nav>
 
-			<FontAwesomeIcon icon={faBars} />
-			<Menu />
+			{/* 토글버튼 클릭시 참조된 토글함수 호출 */}
+			<FontAwesomeIcon icon={faBars} onClick={() => menu.current.open()} />
+			{/* 메뉴컴포넌트를 참조객체에 연결 (토글기능함수) */}
+			<Menu ref={menu} />
 		</header>
 	);
 }

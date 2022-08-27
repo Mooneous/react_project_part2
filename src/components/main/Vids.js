@@ -1,41 +1,61 @@
 //swiper연결 : npm i swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper';
+import { Pagination, Navigation, Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import { useSelector } from 'react-redux';
+import { useRef, useState } from 'react';
+import Popup from '../common/Popup';
 
 function Vids() {
 	const Youtube = useSelector((store) => store.youtube.data);
+	const popup = useRef(null);
+	const [Index, setIndex] = useState(0);
 
 	return (
-		<section id='vids' className='myScroll'>
-			<h1>Recent Youtube</h1>
-			<Swiper
-				modules={[Pagination, Navigation]}
-				pagination={{ clickable: true }}
-				navigation={true}
-				spaceBetween={50}
-				loop={true}
-				slidesPerView={3}
-				centeredSlides={true}>
-				{Youtube.map((vid, idx) => {
-					if (idx >= 4) return;
-					return (
-						<SwiperSlide key={vid.id}>
-							<div className='inner'>
-								<div className='pic'>
-									<img src={vid.snippet.thumbnails.standard.url} alt={vid.snippet.title} />
+		<>
+			<section id='vids' className='myScroll'>
+				<h1>Recent Youtube</h1>
+				<Swiper
+					modules={[Pagination, Navigation, Autoplay]}
+					autoplay={{ delay: 2000, disableOnInteraction: true }}
+					pagination={{ clickable: true }}
+					navigation={true}
+					spaceBetween={50}
+					loop={true}
+					slidesPerView={3}
+					centeredSlides={true}>
+					{Youtube.map((vid, idx) => {
+						if (idx >= 4) return;
+						return (
+							<SwiperSlide key={vid.id}>
+								<div className='inner'>
+									<div
+										className='pic'
+										onClick={() => {
+											setIndex(idx);
+											popup.current.open();
+										}}>
+										<img src={vid.snippet.thumbnails.standard.url} alt={vid.snippet.title} />
+									</div>
+									<h2>{vid.snippet.title}</h2>
 								</div>
-								<h2>{vid.snippet.title}</h2>
-							</div>
-						</SwiperSlide>
-					);
-				})}
-			</Swiper>
-		</section>
+							</SwiperSlide>
+						);
+					})}
+				</Swiper>
+			</section>
+
+			<Popup ref={popup}>
+				{Youtube.length !== 0 && (
+					<iframe
+						src={`https://www.youtube.com/embed/${Youtube[Index].snippet.resourceId.videoId}`}
+						frameBorder='0'></iframe>
+				)}
+			</Popup>
+		</>
 	);
 }
 

@@ -1,15 +1,9 @@
 import Layout from '../common/Layout';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 function Department() {
-	const [Members, setMembers] = useState([]); //초기값은빈배열[]:데이터 배열로 받아옴(axios받아올 state미리 만들어놓음)
-	useEffect(() => {
-		axios.get(process.env.PUBLIC_URL + '/DB/members.json').then((json) => {
-			//console.log(json.data.members);
-			setMembers(json.data.members);
-		});
-	}, []);
+	const path = process.env.PUBLIC_URL;
+	const Members = useSelector((store) => store.members.data);
 
 	return (
 		<Layout name={'Department'}>
@@ -69,7 +63,7 @@ function Department() {
 						{Members.map((member, idx) => {
 							return (
 								<article key={idx}>
-									<img src={`${process.env.PUBLIC_URL}/img/${member.pic}`} alt={member.name} />
+									<img src={`${path}/img/${member.pic}`} alt={member.name} />
 
 									<h2>{member.name}</h2>
 									<p>{member.position}</p>

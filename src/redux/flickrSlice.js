@@ -11,6 +11,7 @@ export const fetchFlickr = createAsyncThunk(
 		const method_interest = 'flickr.interestingness.getList';
 		const method_user = 'flickr.people.getPhotos';
 		const method_search = 'flickr.photos.search';
+		const num = 100;
 
 		let url = '';
 		//객체로 전달되는 type에 따라 호출한 URL을 새로 만들고 axios에 전달
@@ -24,6 +25,8 @@ export const fetchFlickr = createAsyncThunk(
 			url = `https://www.flickr.com/services/rest/?method=${method_search}&per_page=${num}&api_key=${key}&format=json&nojsoncallback=1&tags=${opt.tag}`;
 		}
 		const response = await axios.get(url);
+		//검색어의 결과값이 없을때 경고창 띄우고 이전 결과물 다시 출력
+		if (response.data.photos.photo.length === 0) return alert('해당 검색어의 결과값이 없습니다.');
 		return response.data.photos.photo;
 	}
 );

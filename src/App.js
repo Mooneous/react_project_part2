@@ -1,4 +1,8 @@
 import { Route, Switch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { fetchFlickr } from './redux/flickrSlice';
+import { fetchMembers } from './redux/memberSlice';
+import { fetchYoutube } from './redux/youtubeSlice';
 
 //common
 import Header from './components/common/Header';
@@ -14,8 +18,17 @@ import Members from './components/sub/Members';
 import Youtube from './components/sub/Youtube';
 
 import './scss/style.scss';
+import { useEffect } from 'react';
 
 function App() {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchMembers());
+		dispatch(fetchYoutube());
+		dispatch(fetchFlickr({ type: 'user', user: '164021883@N04' }));
+	}, []);
+
 	return (
 		<>
 			{/* Switch : 중복되는 라우터명이 있을때 처음 연결된 라우터 하나만 연결 */}

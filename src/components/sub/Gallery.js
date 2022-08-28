@@ -85,68 +85,70 @@ function Gallery() {
 	return (
 		<>
 			<Layout name={'Gallery'}>
-				<button user={user} onClick={showUser}>
-					My Gallery
-				</button>
-				<button onClick={showInterest}>Interest Gallery</button>
+				<div className='sectionCon'>
+					<button user={user} onClick={showUser}>
+						My Gallery
+					</button>
+					<button onClick={showInterest}>Interest Gallery</button>
 
-				{/*검색박스 */}
-				<div className='searchBox'>
-					{/*엔터키를눌렀다떼는이벤트발생하면showSearch함수수행하시게~*/}
-					<input
-						type='text'
-						ref={input}
-						onKeyUp={(e) => {
-							if (e.key === 'Enter') showSearch();
-						}}
-					/>
-					<button onClick={showSearch}>search</button>
-				</div>
+					{/*검색박스 */}
+					<div className='searchBox'>
+						{/*엔터키를눌렀다떼는이벤트발생하면showSearch함수수행하시게~*/}
+						<input
+							type='text'
+							ref={input}
+							onKeyUp={(e) => {
+								if (e.key === 'Enter') showSearch();
+							}}
+						/>
+						<button onClick={showSearch}>search</button>
+					</div>
 
-				{Loading && <img className='loading' src={process.env.PUBLIC_URL + '/img/loading.gif'} />}
+					{Loading && <img className='loading' src={process.env.PUBLIC_URL + '/img/loading.gif'} />}
 
-				<div className='frame' ref={frame}>
-					{/* masonry를 적용한 요소들의 부모컴포넌트를 Masonry로 만들고 태그명 지정하고 옵션객체 연결 */}
-					<Masonry elementType={'div'} options={masonryOptions}>
-						{Pics.map((pic, idx) => {
-							return (
-								<article key={idx}>
-									<div className='inner'>
-										<div
-											className='pic'
-											onClick={() => {
-												setIndex(idx);
-												popup.current.open(); //setOpen(true)와 같은말
-											}}>
-											<img
-												src={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_m.jpg`}
-												alt={pic.title}
-											/>
+					<div className='frame' ref={frame}>
+						{/* masonry를 적용한 요소들의 부모컴포넌트를 Masonry로 만들고 태그명 지정하고 옵션객체 연결 */}
+						<Masonry elementType={'div'} options={masonryOptions}>
+							{Pics.map((pic, idx) => {
+								return (
+									<article key={idx}>
+										<div className='inner'>
+											<div
+												className='pic'
+												onClick={() => {
+													setIndex(idx);
+													popup.current.open(); //setOpen(true)와 같은말
+												}}>
+												<img
+													src={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_m.jpg`}
+													alt={pic.title}
+												/>
+											</div>
+
+											<h2>{pic.title}</h2>
+
+											<div className='profile'>
+												{/*setAttribute : 속성바꿔주는함수?메서드? */}
+												<img
+													src={`http://farm${pic.farm}.staticflickr.com/${pic.server}/buddyicons/${pic.owner}.jpg`}
+													alt={pic.owner}
+													onError={(e) => {
+														e.target.setAttribute(
+															'src',
+															'https://www.flickr.com/images/buddyicon.gif'
+														);
+													}}
+												/>
+												<span user={pic.owner} onClick={showUser}>
+													{pic.owner}
+												</span>
+											</div>
 										</div>
-
-										<h2>{pic.title}</h2>
-
-										<div className='profile'>
-											{/*setAttribute : 속성바꿔주는함수?메서드? */}
-											<img
-												src={`http://farm${pic.farm}.staticflickr.com/${pic.server}/buddyicons/${pic.owner}.jpg`}
-												alt={pic.owner}
-												onError={(e) => {
-													e.target.setAttribute(
-														'src',
-														'https://www.flickr.com/images/buddyicon.gif'
-													);
-												}}
-											/>
-											<span user={pic.owner} onClick={showUser}>
-												{pic.owner}
-											</span>
-										</div>
-									</div>
-								</article>
-							);
-						})}
-					</Masonry>
+									</article>
+								);
+							})}
+						</Masonry>
+					</div>
 				</div>
 			</Layout>
 			{/*forwardRef내의 useImperativeHandle의 객체참조하게됨 : Popup컴포넌트에 참조객체 popup연결 - 원래 컴포넌트에는 참조객체연결이 불가하나 forwardRef로 전달되고 있으면 참조가능 */}

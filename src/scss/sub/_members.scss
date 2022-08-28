@@ -172,10 +172,19 @@
 					width: 150px;
 					height: 40px;
 					border: none;
-					background: #333;
 					font: bold 15px/1 'lato';
 					color: #fff;
 					margin: 0 10px;
+					background: #777;
+					box-shadow: 8px 8px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+					cursor: pointer;
+					transition: 0.5s;
+					border-radius: 10px 0 10px 0;
+
+					&:hover {
+						background-color: #333;
+						box-shadow: 8px 8px 6px -1px rgba(0, 0, 0, 0.2), 0 4px 8px -1px rgba(0, 0, 0, 0.06);
+					}
 				}
 			}
 		}

@@ -38,7 +38,7 @@ function Vids() {
 											setIndex(idx);
 											popup.current.open();
 										}}>
-										<img src={vid.snippet.thumbnails.standard.url} alt={vid.snippet.title} />
+										<img src={vid.snippet.thumbnails.high.url} alt={vid.snippet.title} />
 									</div>
 									<h2>{vid.snippet.title}</h2>
 								</div>

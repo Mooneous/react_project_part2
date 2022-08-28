@@ -46,37 +46,38 @@ function Location() {
 
 	return (
 		<Layout name={'Location'}>
-			<ul>
-				<li>
-					<div className='iconWrap'>
-						<FontAwesomeIcon icon={faLocationDot} className='icon' />
-					</div>
+			<div className='sectionCon'>
+				<ul>
+					<li>
+						<div className='iconWrap'>
+							<FontAwesomeIcon icon={faLocationDot} className='icon' />
+						</div>
 
-					<p>
-						Our Location<span>1600 Amphitheatre Parkway Mountain View, CA 94043 Italy</span>
-					</p>
-				</li>
-				<li>
-					<div className='iconWrap'>
-						<FontAwesomeIcon icon={faEnvelope} className='icon' />
-					</div>
+						<p>
+							Our Location<span>1600 Amphitheatre Parkway Mountain View, CA 94043 Italy</span>
+						</p>
+					</li>
+					<li>
+						<div className='iconWrap'>
+							<FontAwesomeIcon icon={faEnvelope} className='icon' />
+						</div>
 
-					<p>
-						Email Us<span>consult8282@logo.com</span>
-					</p>
-				</li>
-				<li>
-					<div className='iconWrap'>
-						<FontAwesomeIcon icon={faMobileButton} className='icon' />
-					</div>
+						<p>
+							Email Us<span>consult8282@logo.com</span>
+						</p>
+					</li>
+					<li>
+						<div className='iconWrap'>
+							<FontAwesomeIcon icon={faMobileButton} className='icon' />
+						</div>
 
-					<p>
-						Call Us<span>+45 8612 7042</span>
-					</p>
-				</li>
-			</ul>
-
-			<div id='map' ref={container}></div>
+						<p>
+							Call Us<span>+45 8612 7042</span>
+						</p>
+					</li>
+				</ul>
+				<div id='map' ref={container}></div>
+			</div>
 		</Layout>
 	);
 }

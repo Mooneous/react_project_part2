@@ -1,45 +1,51 @@
 .Gallery {
-	.frame {
-		transition: transform 0.5s, opacity 0.5s;
-		transform: translateY(200px);
-		opacity: 0;
+	width: 100%;
 
-		&.on {
-			transform: translateY(0px);
-			opacity: 1;
-		}
+	.sectionCon {
+		width: 100%;
+		padding: 150px 0;
+		.frame {
+			transition: transform 0.5s, opacity 0.5s;
+			transform: translateY(200px);
+			opacity: 0;
 
-		&::after {
-			content: '';
-			display: block;
-			clear: both;
-		}
+			&.on {
+				transform: translateY(0px);
+				opacity: 1;
+			}
 
-		article {
-			width: 20%;
-			padding: 10px;
-			float: left;
+			&::after {
+				content: '';
+				display: block;
+				clear: both;
+			}
 
-			.inner {
-				width: 100%;
+			article {
+				width: 20%;
 				padding: 10px;
-				background: #fff;
-				box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+				float: left;
 
-				.pic {
+				.inner {
 					width: 100%;
-					margin-bottom: 5px;
-					cursor: pointer;
+					padding: 10px;
+					background: #fff;
+					box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
 
-					img {
+					.pic {
 						width: 100%;
-					}
-				}
+						margin-bottom: 5px;
+						cursor: pointer;
 
-				h2 {
-					font: normal 14px/1.2 'arial';
-					color: #777;
-					margin-bottom: 30px;
+						img {
+							width: 100%;
+						}
+					}
+
+					h2 {
+						font: normal 14px/1.2 'arial';
+						color: #777;
+						margin-bottom: 30px;
+					}
 				}
 			}
 		}

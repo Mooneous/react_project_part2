@@ -101,68 +101,83 @@ function Community() {
 	//Posts값이 변경될때마다 로컬 스토리지에 기존 데이터를 다시 문자열로 변환해서 저장
 	useEffect(() => {
 		localStorage.setItem('post', JSON.stringify(Posts));
+		//console.log(Posts);
 	}, [Posts]); //Posts값이 바뀔때마다
 
 	return (
 		<Layout name={'Community'}>
-			<div className='inputBox'>
-				<input type='text' placeholder='제목을 입력하세요' ref={input} />
-				<br />
-				<textarea cols='30' rows='3' placeholder='본문을 입력하세요' ref={textarea}></textarea>
-				<br />
-				<div className='btnSet'>
-					<button>CANCEL</button>
-					<button onClick={createPost}>WRITE</button>
+			<div className='sectionCon'>
+				<div className='inputBox'>
+					<div className='inputBoxWrap'>
+						<input type='text' placeholder='Title' ref={input} />
+						<br />
+						<textarea
+							cols='30'
+							rows='3'
+							placeholder='Write the content whatever you want to say to us :)'
+							ref={textarea}></textarea>
+						<br />
+						<div className='btnSet'>
+							<button onClick={resetForm}>CANCEL</button>
+							<button onClick={createPost}>WRITE</button>
+						</div>
+					</div>
 				</div>
-			</div>
 
-			<div className='showBox'>
-				{Posts.map((post, idx) => {
-					return (
-						<article key={idx}>
-							{post.enableUpdate ? (
-								//수정모드
-								<>
-									<div className='editTxt'>
-										<input type='text' defaultValue={post.title} ref={inputEdit} />
-										<br />
-										<textarea
-											name=''
-											id=''
-											cols='30'
-											rows='3'
-											ref={textareaEdit}
-											defaultValue={post.content}></textarea>
-										<br />
-										<div className='btnSet'>
-											<button onClick={() => disableUpdate(idx)}>CANCEL</button>
-											<button onClick={() => updatePost(idx)}>UPDATE</button>
+				<div className='showBox'>
+					{Posts.map((post, idx) => {
+						return (
+							<article key={idx}>
+								{post.enableUpdate ? (
+									//수정모드
+									<>
+										<div className='editTxt'>
+											<div className='editTxtWrap'>
+												<input type='text' defaultValue={post.title} ref={inputEdit} />
+												<br />
+												<textarea
+													name=''
+													id=''
+													cols='30'
+													rows='3'
+													ref={textareaEdit}
+													defaultValue={post.content}></textarea>
+												<br />
+												<div className='btnSet'>
+													<button onClick={() => disableUpdate(idx)}>CANCEL</button>
+													<button onClick={() => updatePost(idx)}>UPDATE</button>
+												</div>
+											</div>
 										</div>
-									</div>
-								</>
-							) : (
-								//출력모드
-								<>
-									<div className='txt'>
-										<h2>{post.title}</h2>
-										<p>{post.content}</p>
-									</div>
+									</>
+								) : (
+									//출력모드
+									<>
+										<div className='post'>
+											<div className='number'>01{post.idx + 1}</div>
+											<div className='txt'>
+												<h2>{post.title}</h2>
+												<p>{post.content}</p>
+											</div>
 
-									<div className='btnSet'>
-										<button onClick={() => enableUpdate(idx)}>EDIT</button>
-										{/* 각 게시글 목록을 생성할때 삭제버튼까지 같이 생성, 삭제버튼 클릭시 삭제하려고 하는 해당 순번을 인수로 전달 */}
-										<button
-											onClick={() => {
-												deletePost(idx);
-											}}>
-											DELETE
-										</button>
-									</div>
-								</>
-							)}
-						</article>
-					);
-				})}
+											<div className='btnSet'>
+												<button onClick={() => enableUpdate(idx)}>EDIT</button>
+												<br />
+												{/* 각 게시글 목록을 생성할때 삭제버튼까지 같이 생성, 삭제버튼 클릭시 삭제하려고 하는 해당 순번을 인수로 전달 */}
+												<button
+													onClick={() => {
+														deletePost(idx);
+													}}>
+													DELETE
+												</button>
+											</div>
+										</div>
+									</>
+								)}
+							</article>
+						);
+					})}
+				</div>
 			</div>
 		</Layout>
 	);

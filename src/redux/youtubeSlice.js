@@ -7,11 +7,14 @@ export const fetchYoutube = createAsyncThunk(
 	'youtube/requestYoutube',
 	async () => {
 		//axios요청할 URL생성
+
 		const key = 'AIzaSyB5JZfJTpMHm2WfEEIid2Dt443MfKM9XAU';
-		const playlist = 'PL0niq1d_d9TP1sXECKOKrBpMhjbkfrjsE';
-		const num = 3;
+		const playlist = 'PL0niq1d_d9TMT4BpBeG1nAV1coJbStrqh';
+
+		const num = 11;
 		const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=${key}&playlistId=${playlist}&maxResults=${num}`;
 		const response = await axios.get(url);
+		console.log(response.data.items);
 		return response.data.items;
 	}
 );

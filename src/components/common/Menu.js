@@ -14,6 +14,7 @@ const Menu = forwardRef((props, ref) => {
 		};
 	});
 
+	//1280px이상이면 모바일메뉴패널 닫힘
 	useEffect(() => {
 		window.addEventListener('resize', () => {
 			const wid = window.innerWidth;
@@ -47,32 +48,32 @@ const Menu = forwardRef((props, ref) => {
 						<div className='exit' onClick={() => setOpen(false)}></div>
 						<ul>
 							<li>
-								<NavLink to='/community' activeStyle={active}>
+								<NavLink to='/community' activeStyle={active} onClick={() => setOpen(false)}>
 									Community
 								</NavLink>
 							</li>
 							<li>
-								<NavLink to='/department' activeStyle={active}>
+								<NavLink to='/department' activeStyle={active} onClick={() => setOpen(false)}>
 									Department
 								</NavLink>
 							</li>
 							<li>
-								<NavLink to='/gallery' activeStyle={active}>
+								<NavLink to='/gallery' activeStyle={active} onClick={() => setOpen(false)}>
 									Gallery
 								</NavLink>
 							</li>
 							<li>
-								<NavLink to='/location' activeStyle={active}>
+								<NavLink to='/location' activeStyle={active} onClick={() => setOpen(false)}>
 									Location
 								</NavLink>
 							</li>
 							<li>
-								<NavLink to='/youtube' activeStyle={active}>
+								<NavLink to='/youtube' activeStyle={active} onClick={() => setOpen(false)}>
 									Youtube
 								</NavLink>
 							</li>
 							<li>
-								<NavLink to='/members' activeStyle={active}>
+								<NavLink to='/members' activeStyle={active} onClick={() => setOpen(false)}>
 									Members
 								</NavLink>
 							</li>

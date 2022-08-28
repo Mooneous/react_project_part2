@@ -12,14 +12,16 @@
 		height: 100vh;
 		background-color: #666;
 		margin-left: 30%;
-		padding: 50px;
+		padding: 100px 50px 0px 50px;
 
 		h1 {
 			margin-bottom: 50px;
 			a {
 				font-family: lato;
+				color: #fff;
 				span {
 					font-family: lato;
+					color: #fff;
 				}
 			}
 		}
@@ -56,13 +58,14 @@
 		}
 
 		ul {
+			border-top: 1px solid #888;
 			li {
 				a {
 					display: block;
 					height: 50px;
 					font: 35px/50px 'Cormorant Garamond';
 					color: #bbb;
-					padding: 40px 0;
+					padding: 35px 0;
 				}
 			}
 		}
